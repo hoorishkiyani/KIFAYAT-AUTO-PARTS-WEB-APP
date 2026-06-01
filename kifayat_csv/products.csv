@@ -1,0 +1,21 @@
+id,name,description,price,stock_status,icon,category_id
+1,Oil Filter Premium,High-performance oil filter for extended engine life.,850.00,In Stock,🔩,1
+2,Spark Plug Set (4x),NGK-compatible spark plugs for smooth ignition.,2200.00,In Stock,🔩,1
+3,Timing Belt Kit,Complete timing belt replacement kit.,3200.00,In Stock,🔩,1
+4,Air Filter,High-flow air filter for better engine breathing.,1200.00,In Stock,🔩,1
+5,Shock Absorber Front,OEM-grade front shock absorber fits most sedans.,4500.00,In Stock,🚗,2
+6,Coil Spring Set,Pair of replacement coil springs for smoother ride.,3800.00,Low Stock,🚗,2
+7,Brake Pad Set,Premium semi-metallic brake pads for reliable stopping.,3500.00,In Stock,🔴,3
+8,Brake Disc Rotor,Vented brake rotor for superior heat dissipation.,2800.00,In Stock,🔴,3
+9,Brake Fluid DOT4 1L,High-boiling-point brake fluid 1 litre bottle.,900.00,In Stock,🔴,3
+10,LED Headlight Bulb Pair,Bright white LED replacement bulbs H4 pair pack.,1500.00,In Stock,💡,4
+11,Tail Light Assembly,Direct-fit tail light replacement with indicators.,2200.00,Low Stock,💡,4
+12,DRL Strip Light,Flexible daytime running light strip 12V.,800.00,In Stock,💡,4
+13,Car Battery 65Ah,Maintenance-free 65Ah battery with 18-month warranty.,8500.00,In Stock,⚡,5
+14,Alternator,Remanufactured alternator 90A output.,6200.00,Low Stock,⚡,5
+15,Alloy Wheel Cover 15",Universal alloy-look wheel cover set of 4.,1200.00,In Stock,🛞,6
+16,Tyre Pressure Gauge,Digital tyre pressure gauge with LED display.,650.00,In Stock,🛞,6
+17,Body Spray Paint Black,Fast-dry matte black body spray 400ml.,650.00,Low Stock,🎨,7
+18,Body Spray Paint White,Gloss white body spray 400ml.,650.00,In Stock,🎨,7
+19,Radiator,Aluminium-core radiator for standard sedans.,5500.00,In Stock,❄️,8
+20,Coolant 1L,OAT-formula engine coolant concentrated 1 litre.,750.00,In Stock,❄️,8

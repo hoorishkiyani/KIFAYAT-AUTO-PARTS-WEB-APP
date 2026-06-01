@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Kifayat Auto Parts{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span class="logo-icon">⚙</span>
+      <span class="logo-text">KIFAYAT <span class="logo-accent">AUTO PARTS</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('index') }}"      {% if request.endpoint == 'index'      %}class="active"{% endif %}>Home</a></li>
+      <li><a href="{{ url_for('products') }}"   {% if request.endpoint == 'products'   %}class="active"{% endif %}>Products</a></li>
+      <li><a href="{{ url_for('categories') }}" {% if request.endpoint == 'categories' %}class="active"{% endif %}>Categories</a></li>
+      <li><a href="{{ url_for('orders') }}"     {% if request.endpoint in ['orders','track_order'] %}class="active"{% endif %}>Orders</a></li>
+      <li><a href="{{ url_for('contact') }}"    {% if request.endpoint == 'contact'    %}class="active"{% endif %}>Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-cart" onclick="toggleCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </nav>
+
+  <!-- FLASH MESSAGES -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for cat, msg in messages %}
+          <div class="flash flash-{{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-drawer-body" id="cartBody"></div>
+    <div class="cart-drawer-footer" id="cartFooter"></div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutOverlay" style="display:none">
+    <div class="modal">
+      <h3>Complete Your Order</h3>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="coName" placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="coPhone" placeholder="+92 300 1234567" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeCheckout()">Cancel</button>
+        <button class="btn-primary" onclick="submitCheckout()">Place Order</button>
+      </div>
+    </div>
+  </div>
+
+  {% block content %}{% endblock %}
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span class="logo-icon">⚙</span>
+          <span class="logo-text">KIFAYAT <span class="logo-accent">AUTO PARTS</span></span>
+        </div>
+        <p>Trusted supplier of auto parts across Pakistan since 2019.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('products') }}">Products</a></li>
+          <li><a href="{{ url_for('categories') }}">Categories</a></li>
+          <li><a href="{{ url_for('orders') }}">Orders</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>📍 Regi Model Town, Peshawar</p>
+        <p>📞 +92 330 3027591</p>
+        <p>✉ atizazmalik91@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Kifayat Auto Parts. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

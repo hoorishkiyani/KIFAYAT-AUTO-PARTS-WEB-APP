@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Kifayat Auto Parts — Home{% endblock %}
+
+{% block content %}
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-tag">Pakistan's Trusted Auto Parts Store</p>
+      <h1 class="hero-title">QUALITY PARTS.<br/><span class="hero-accent">EVERY TIME.</span></h1>
+      <p class="hero-sub">{{ product_count }}+ products. {{ order_count }}+ transactions. Delivering across Pakistan since 2019.</p>
+      <div class="hero-btns">
+        <a href="{{ url_for('products') }}" class="btn-primary">Shop Now</a>
+        <a href="{{ url_for('categories') }}" class="btn-secondary">Browse Categories</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <span class="stat-num">{{ product_count }}+</span>
+        <span class="stat-label">Products</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">{{ order_count }}+</span>
+        <span class="stat-label">Transactions</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">{{ customer_count }}+</span>
+        <span class="stat-label">Customers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="section-header">
+      <h2 class="section-title">Visit the Pages</h2>
+      <p class="section-sub">Choose one of our dedicated sections to explore our store.</p>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card">
+        <span class="cat-icon">🛒</span>
+        <h3>Products</h3>
+        <p>Shop our full product collection, search by name or filter by category.</p>
+        <a href="{{ url_for('products') }}" class="btn-secondary">Open Products</a>
+      </div>
+      <div class="cat-card">
+        <span class="cat-icon">📂</span>
+        <h3>Categories</h3>
+        <p>Browse auto parts by category to shop faster and easier.</p>
+        <a href="{{ url_for('categories') }}" class="btn-secondary">Open Categories</a>
+      </div>
+      <div class="cat-card">
+        <span class="cat-icon">📦</span>
+        <h3>Orders</h3>
+        <p>View your cart and track your order status by Order ID.</p>
+        <a href="{{ url_for('orders') }}" class="btn-secondary">Open Orders</a>
+      </div>
+      <div class="cat-card">
+        <span class="cat-icon">✉️</span>
+        <h3>Contact</h3>
+        <p>Send us a message or find our contact information.</p>
+        <a href="{{ url_for('contact') }}" class="btn-secondary">Open Contact</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Categories — Kifayat Auto Parts{% endblock %}
+
+{% block content %}
+<section class="categories">
+  <div class="section-header">
+    <h1 class="section-title">Browse <span class="accent">Categories</span></h1>
+    <p class="section-sub">Find parts by category to shop faster and easier.</p>
+  </div>
+
+  <div class="categories-grid">
+    {% for cat in categories %}
+    <div class="category-card">
+      <div class="category-icon">{{ cat.icon }}</div>
+      <h3 class="category-name">{{ cat.name }}</h3>
+      <p class="category-desc">{{ cat.description }}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;">
+        <span style="color:var(--muted);font-size:0.9rem;">{{ cat.product_count }} product{{ 's' if cat.product_count != 1 }}</span>
+        <a href="{{ url_for('products') }}?category={{ cat.name }}" class="btn-secondary">Browse</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

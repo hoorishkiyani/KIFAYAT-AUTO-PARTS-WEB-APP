@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block title %}Orders — Kifayat Auto Parts{% endblock %}
+
+{% block content %}
+<!-- CART SECTION -->
+<section class="cart">
+  <div class="section-header">
+    <h1 class="section-title">Your <span class="accent">Cart</span></h1>
+    <p class="section-sub">Items you've added — click the cart icon in the navbar to manage them.</p>
+  </div>
+  <div id="cartPageContainer" class="cart-container">
+    <p class="empty-state">Your cart is empty. <a href="{{ url_for('products') }}">Browse products</a></p>
+  </div>
+</section>
+
+<!-- TRACK ORDER SECTION -->
+<section class="orders">
+  <div class="section-header">
+    <h1 class="section-title">Track Your <span class="accent">Order</span></h1>
+    <p class="section-sub">Enter your Order ID to view details and status.</p>
+  </div>
+
+  <form method="post" action="{{ url_for('track_order') }}">
+    <div class="track-box">
+      <input type="text" name="order_id" id="trackInput" placeholder="Enter Order ID (e.g. KAP-2026-001)" class="track-input" value="{{ tracked.order_code if tracked else '' }}" required/>
+      <button type="submit" class="btn-track">Track Order</button>
+    </div>
+  </form>
+
+  {% if tracked %}
+  <div class="orders-container" style="margin-top:32px;">
+    <div class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-number">Order #{{ tracked.order_code }}</h3>
+          <p class="order-date">Customer: {{ tracked.customer_name }} &nbsp;|&nbsp; Placed on {{ tracked.placed_on }}</p>
+        </div>
+        <span class="order-status
+          {% if tracked.status == 'Delivered' %}status-delivered
+          {% elif tracked.status == 'In Transit' %}status-pending
+          {% elif tracked.status == 'Cancelled' %}status-cancelled
+          {% endif %}">
+          {{ tracked.status }}
+        </span>
+      </div>
+      <div class="order-items">
+        {% for item in tracked.items %}
+        <div class="order-item">
+          <span class="item-name">{{ item.name }}</span>
+          <span class="item-qty">Qty: {{ item.qty }}</span>
+          <span class="item-price">PKR {{ "{:,.0f}".format(item.price * item.qty) }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="order-footer">
+        <strong style="color:var(--accent);">
+          Total: PKR {{ "{:,.0f}".format(tracked.items | sum(attribute='price') if tracked.items else 0) }}
+        </strong>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Sample Orders (demo) -->
+  <div class="section-header" style="margin-top:48px;">
+    <h2 class="section-title" style="font-size:1.4rem;">Sample Orders <span style="color:var(--muted);font-size:1rem;font-family:var(--font-body);font-weight:400;">(try these IDs above)</span></h2>
+  </div>
+  <div class="orders-container">
+    <div class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-number">Order #KAP-2026-001</h3>
+          <p class="order-date">Placed on May 15, 2026</p>
+        </div>
+        <span class="order-status status-delivered">Delivered</span>
+      </div>
+      <div class="order-items">
+        <div class="order-item">
+          <span class="item-name">Oil Filter Premium</span>
+          <span class="item-qty">Qty: 2</span>
+          <span class="item-price">PKR 1,700</span>
+        </div>
+      </div>
+    </div>
+    <div class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-number">Order #KAP-2026-002</h3>
+          <p class="order-date">Placed on May 10, 2026</p>
+        </div>
+        <span class="order-status status-pending">In Transit</span>
+      </div>
+      <div class="order-items">
+        <div class="order-item">
+          <span class="item-name">Brake Pad Set</span>
+          <span class="item-qty">Qty: 1</span>
+          <span class="item-price">PKR 3,500</span>
+        </div>
+        <div class="order-item">
+          <span class="item-name">Spark Plug Set (4x)</span>
+          <span class="item-qty">Qty: 1</span>
+          <span class="item-price">PKR 2,200</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Render full cart on the orders page too
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('cartPageContainer');
+    renderCartInPage(container);
+  });
+</script>
+{% endblock %}

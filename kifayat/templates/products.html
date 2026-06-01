@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Products — Kifayat Auto Parts{% endblock %}
+
+{% block content %}
+<section class="products">
+  <div class="section-header">
+    <h2 class="section-title">Featured <span class="accent">Products</span></h2>
+    <p class="section-sub">Top selling items from our inventory.</p>
+  </div>
+
+  <!-- Search & Filter -->
+  <form method="get" action="{{ url_for('products') }}" class="search-bar">
+    <input type="text" name="search" value="{{ search }}" placeholder="Search products by name or category..." />
+    <select name="category" class="filter-select">
+      <option value="">All Categories</option>
+      {% for cat in categories %}
+        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn-search">🔍 Search</button>
+    {% if search or selected_category %}
+      <a href="{{ url_for('products') }}" class="btn-secondary">Clear</a>
+    {% endif %}
+  </form>
+
+  {% if products %}
+  <div class="products-grid">
+    {% for p in products %}
+    <div class="product-card" data-name="{{ p.name }}" data-price="{{ p.price }}" data-icon="{{ p.icon }}" data-cat="{{ p.category_name }}">
+      <div class="product-badge {% if p.stock_status != 'In Stock' %}out{% endif %}">{{ p.stock_status }}</div>
+      <div class="product-img">{{ p.icon }}</div>
+      <div class="product-info">
+        <span class="product-cat">{{ p.category_name }}</span>
+        <h3 class="product-name">{{ p.name }}</h3>
+        <p class="product-desc">{{ p.description }}</p>
+        <div class="product-footer">
+          <span class="product-price">PKR {{ "{:,.0f}".format(p.price) }}</span>
+          {% if p.stock_status != 'Out of Stock' %}
+          <button class="btn-add" onclick="addToCart('{{ p.name }}', {{ p.price }}, '{{ p.icon }}', '{{ p.category_name }}')">Add to Cart</button>
+          {% else %}
+          <button class="btn-add" disabled style="opacity:0.45;cursor:not-allowed;">Out of Stock</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <p>No products found{% if search %} for "<strong>{{ search }}</strong>"{% endif %}. <a href="{{ url_for('products') }}">Clear filters</a></p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
